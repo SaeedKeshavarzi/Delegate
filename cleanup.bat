@@ -18,16 +18,6 @@ IF EXIST ".\x64" (
     rmdir ".\x64" /s /q
 )
 
-IF EXIST ".\debug" (
-    rmdir ".\debug" /s /q
-)
-
-IF EXIST ".\release" (
-    rmdir ".\release" /s /q
-)
-
-del *.db
-
 IF EXIST ".\release" (
     rmdir ".\release" /s /q
 )
@@ -39,6 +29,8 @@ IF EXIST ".\debug" (
 IF EXIST ".\Makefile" (
     del ".\Makefile" /s /q
 )
+
+del *.db
 
 del *.Debug
 
