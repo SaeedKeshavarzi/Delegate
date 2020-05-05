@@ -25,9 +25,10 @@ namespace delegate_utility
 	class delegate<_TOut(_TObject::*)(_TIn...), _Method>
 	{
 	public:
-		using object_ptr_t = _TObject * const;
+		using object_ptr_t = _TObject *;
 
-		delegate() = delete;
+		inline constexpr delegate() : object_ptr_{ nullptr }
+		{ }
 
 		inline constexpr delegate(const object_ptr_t & _object_ptr) : object_ptr_{ _object_ptr }
 		{ }
@@ -45,9 +46,10 @@ namespace delegate_utility
 	class delegate<_TOut(_TObject::*)(_TIn...) const, _Method>
 	{
 	public:
-		using object_ptr_t = _TObject const * const;
+		using object_ptr_t = _TObject const *;
 
-		delegate() = delete;
+		inline constexpr delegate() : object_ptr_{ nullptr }
+		{ }
 
 		inline constexpr delegate(const object_ptr_t & _object_ptr) : object_ptr_{ _object_ptr }
 		{ }
@@ -82,10 +84,11 @@ namespace delegate_utility
 	class delegate_any
 	{
 	public:
-		using pointer_t = void * const;
+		using pointer_t = void *;
 		using callback_t = _TOut(*)(_TIn..., pointer_t);
 
-		delegate_any() = delete;
+		inline constexpr delegate_any() : pointer_{ nullptr }, callback_{ nullptr }
+		{ }
 
 		template<typename _TCallable, std::enable_if_t<is_callable<_TCallable, _TOut, _TIn...>::value, bool> = true>
 		inline delegate_any(_TCallable & _callable) : pointer_{ (pointer_t)(&_callable) }
