@@ -33,6 +33,11 @@ namespace delegate_utility
 		inline constexpr delegate(const object_ptr_t & _object_ptr) : object_ptr_{ _object_ptr }
 		{ }
 
+		inline constexpr bool is_initialized() const
+		{
+			return (object_ptr_ != nullptr);
+		}
+
 		inline constexpr _TOut operator()(_TIn... args) const
 		{
 			return (object_ptr_->*_Method)(std::forward<_TIn>(args)...);
@@ -53,6 +58,11 @@ namespace delegate_utility
 
 		inline constexpr delegate(const object_ptr_t & _object_ptr) : object_ptr_{ _object_ptr }
 		{ }
+
+		inline constexpr bool is_initialized() const
+		{
+			return (object_ptr_ != nullptr);
+		}
 
 		inline constexpr _TOut operator()(_TIn... args) const
 		{
@@ -107,6 +117,11 @@ namespace delegate_utility
 		inline constexpr delegate_any(const callback_t & _callback, const pointer_t & _pointer = nullptr) :
 			callback_{ _callback }, pointer_{ _pointer }
 		{ }
+
+		inline constexpr bool is_initialized() const
+		{
+			return ((callback_ != nullptr) && (pointer_ != nullptr));
+		}
 
 		inline constexpr _TOut operator()(_TIn... args) const
 		{
